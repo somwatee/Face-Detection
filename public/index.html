@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponkit Somwatee</title>
+    <script src="./js/lib/jquery.min.js"></script>
+    <script src="./js//lib/bootstrap.min.js"></script>
+    <script src="./js/lib/face-api.min.js"></script>
+
+    <script src="./js/lib/pouchdb.min.js"></script>
+    <script src="./js/lib/pouchdb.find.js"></script>
+
+    <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <br>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">profile</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row">
+          <div class="col-sm">
+            <video id="webcam" autoplay muted onPlay ="onPlay()" ></video>
+            <canvas id='webcamOverlay' class="overlay" style="display: none;"></canvas>
+          </div>
+            <div class="col-sm">
+              Ponkit Somwatee
+            </div>
+          </div>
+        </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <br>
+        <div class="row">
+          <div class="col">
+            <center>
+              <label id="uploadLabel" for="upload">
+                <img id="img" width="500" height="400">
+                </br>
+                </br>
+                <input id="upload" name="upload" type="file" accept="image/*" style="display: none;" />
+              </label>
+            </center>
+          </div>
+            <div class="col">
+              <div class="form-group row">
+                <label for="cid" class="col-sm-4 col-form-label">เลขบัตรประจำตัวประชาชน</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="cid" placeholder="เลขบัตรประจำตัวประชาชน">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="title" class="col-sm-4 col-form-label">คำนำหน้า</label>
+                <div class="col-sm-8" >
+                <select class="custom-select" id="title">
+                  <option selected>คำนำหน้า</option>
+                  <option value="นาย">นาย</option>
+                  <option value="นาง">นาง</option>
+                  <option value="นางสาว">นางสาว</option>
+                </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-sm-4 col-form-label">ชื่อ</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="name" placeholder="ชื่อ">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="lastname" class="col-sm-4 col-form-label">นามสกุล</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="lastname" placeholder="นามสกุล">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="address" class="col-sm-4 col-form-label">ที่อยู่</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="address" placeholder="ที่อยู่">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="birthday" class="col-sm-4 col-form-label">วัน/เดือน/ปี เกิด</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="birthday" placeholder="วัน/เดือน/ปี เกิด ตัวอย่าง 20/11/1985">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="tel" class="col-sm-4 col-form-label">เบอร์โทร</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="tel" placeholder="เบอร์โทร ตัวอย่าง 0954512261">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="education" class="col-sm-4 col-form-label">ระดับการศึกษา</label>
+                <div class="col-sm-8" >
+                <select class="custom-select" id="education">
+                  <option selected>ระดับการศึกษา</option>
+                  <option value="ประถมศึกษา">ประถมศึกษา</option>
+                  <option value="มัธยมต้น">มัธยมต้น</option>
+                  <option value="มัธยมปลายหรือเทียบเท่า">มัธยมปลายหรือเทียบเท่า</option>
+                  <option value="ปริญญาตรี">ปริญญาตรี</option>
+                  <option value="ปริญญาโท">ปริญญาโท</option>
+                  <option value="ปริญญาเอก">ปริญญาเอก</option>
+                </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="position" class="col-sm-4 col-form-label">ตำแหน่ง</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="position" placeholder="ตำแหน่ง">
+                </div>
+              </div>
+            </div>
+        </div>
+        <center>
+          <button type="button" class="btn btn-outline-success" id="profileSubmit">บันทึก</button>
+        </center>
+      <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+    </div>
+        </div>
+  </div>
+    <script src="./js/util.js"></script>
+    <script src="./js/webcam.js"></script>
+    <script src="./js/upload.js"></script>
+</body>
+</html>
